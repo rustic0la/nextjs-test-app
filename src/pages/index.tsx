@@ -1,8 +1,11 @@
 import { Button, HeaderTag, Paragraph, Rating, Tag } from '@/components';
 import { withLayout } from '@/layout';
+import axios from 'axios';
+import { MenuItem } from '@/interfaces/menu.interface';
+import { GetStaticProps } from 'next/types';
 import { useState } from 'react';
 
-function Home() {
+function Home({ menu }: HomeProps): JSX.Element {
   const [rating, setRating] = useState(4);
   return (
     <>
@@ -31,3 +34,23 @@ function Home() {
 }
 
 export default withLayout(Home);
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const firstCategory = 0;
+  const { data: menu } = await axios.post<MenuItem[]>(
+    process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find',
+    { firstCategory },
+  );
+
+  return {
+    props: {
+      menu,
+      firstCategory,
+    },
+  };
+};
+
+interface HomeProps extends Record<string, unknown> {
+  menu: MenuItem[];
+  firstCategory: number;
+}
