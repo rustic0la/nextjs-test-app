@@ -1,3 +1,4 @@
+import { AppContextProvider, IAppContext } from '@/context/app.context';
 import { FC } from 'react';
 import { ReactNode } from 'react';
 import { Footer } from './Footer';
@@ -6,7 +7,6 @@ import styles from './Layout.module.css';
 import { Sidebar } from './Sidebar';
 
 export interface LayoutProps {
-  // extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children: ReactNode;
 }
 
@@ -21,12 +21,14 @@ export const Layout: FC<LayoutProps> = ({ children, ...props }) => {
   );
 };
 
-export const withLayout = <T extends Record<string, unknown>>(Component: FC<T>) => {
+export const withLayout = <T extends Record<string, unknown> & IAppContext>(Component: FC<T>) => {
   return function withLayoutComponent(props: T) {
     return (
-      <Layout>
-        <Component {...props} />
-      </Layout>
+      <AppContextProvider menu={props.menu} firstCategory={props.firstCategory}>
+        <Layout>
+          <Component {...props} />
+        </Layout>
+      </AppContextProvider>
     );
   };
 };
