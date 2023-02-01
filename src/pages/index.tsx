@@ -1,9 +1,10 @@
-import { Button, HeaderTag, Paragraph, Rating, Tag } from '@/components';
+import { Button, HeaderTag, Input, Paragraph, Rating, Tag } from '@/components';
 import { withLayout } from '@/layout';
 import axios from 'axios';
 import { MenuItem } from '@/interfaces/menu.interface';
 import { GetStaticProps } from 'next/types';
 import { useState } from 'react';
+import { Textarea } from '@/components';
 
 function Home({ menu }: HomeProps): JSX.Element {
   const [rating, setRating] = useState(4);
@@ -29,6 +30,8 @@ function Home({ menu }: HomeProps): JSX.Element {
         Large
       </Tag>
       <Rating isEditable rating={rating} setRating={setRating} />
+      <Input placeholder="Name" />
+      <Textarea placeholder="Review Text" />
     </>
   );
 }
