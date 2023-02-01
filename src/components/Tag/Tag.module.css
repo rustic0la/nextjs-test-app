@@ -4,6 +4,7 @@
 	box-sizing: border-box;
 
 	margin-right: 5px;
+	padding: 2px 8px;
 
 	border-radius: 20px;
 }
@@ -35,7 +36,7 @@
 
 .grey {
 	color: var(--white);
-	background: #83C0D9;
+	background: #B3C0D9;
 
 	font-weight: bold;
 }
